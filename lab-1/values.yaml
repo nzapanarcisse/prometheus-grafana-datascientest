@@ -3,6 +3,7 @@ service:
   nodePort: "30069"
 persistence:
   enabled: false
+#on active postgress(car vous pouvez fournir une host externe à odoo comme bd)
 postgresql:
   enabled: true
   persistence:
