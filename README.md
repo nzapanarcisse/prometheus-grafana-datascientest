@@ -27,7 +27,13 @@ Dans cette **formation** nous apportons une solution concrète à cette problém
 ```
 installation odoo
 ```bash
- helm install odoo-datascientest bitnami/odoo -f values.yaml --version 18.1.0
+ kubectl create namespace monitoring
+ helm install pg-postgres-odoo-datascientest bitnami/postgresql -f values_postgres.yaml -n monitoring
+ helm install odoo-datascientest bitnami/odoo -f values.yaml -n monitoring
+ kubectl get all -n monitoring
+
+ helm uninstall odoo-datascientest -n monitoring
+ helm uninstall pg-postgres-odoo-datascientest -n monitoring
 ```
 1. **Obtenez l'URL d'Odoo en exécutant les commandes suivantes :**
 
@@ -44,3 +50,11 @@ export ODOO_PASSWORD=$(kubectl get secret --namespace "default" odoo-datasciente
 echo Email   : $ODOO_EMAIL
 echo Password: $ODOO_PASSWORD
 ```
+
+## INSTALLATION PROMETHEUS ET GRAFANA
+
+**installation prometheus***
+
+
+
+# I. Monitoring du matériel et du système d'exploitation
