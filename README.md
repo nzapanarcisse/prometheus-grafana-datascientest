@@ -110,15 +110,18 @@ Vous pouvez aller dans **status/targets** pour voir qu'effectivement Prometheus 
 2. **ce placer dans le dossier sources/grafana du projet** :
 ```bash
    helm install grafana-dashboard -f values2.yaml grafana/grafana --version 8.0.0
+   #pour avoir le mot de passe admin
+   kubectl get secret --namespace default grafana-dashboard -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
 ```
 3. **Accéder à Grafana** :
    Connectez-vous à votre instance Grafana (tableau de bord Grafana) en utilisant le port du service de type NodePort du fichier values (30007) avec l'URL : **http://185.185.83.44:30007/** dans notre cas.
+![image](https://github.com/user-attachments/assets/d78b778e-465b-4a22-9fea-2764bb481c5c)
 
 4. **configuration de datasource** :
 
    Dans Grafana, **une source de données** est une connexion à un système qui stocke des données que vous souhaitez visualiser et analyser. Grafana prend en charge plusieurs types de sources de données, dont Prometheus, qui est un système de monitoring et d'alerte largement utilisé pour collecter des métriques.
 
-- **Ajouter la source de données :**
+5. **Ajouter la source de données :**
    - Dans le tableau de bord Grafana, allez dans le menu latéral et sélectionnez Configuration (l'icône de l'engrenage).
    - Cliquez sur Sources de données.
    - Cliquez sur Ajouter une source de données.
@@ -126,6 +129,18 @@ Vous pouvez aller dans **status/targets** pour voir qu'effectivement Prometheus 
    - Dans le champ URL, entrez l'URL de votre instance Prometheus. Par exemple : **http://prometheus-service.monitoring.svc:8090.** dans notre cas
    - Cliquez sur le bouton Tester et enregistrer pour vérifier que Grafana peut se connecter à Prometheus avec l'URL fournie.
    - Si la connexion est réussie, vous pouvez enregistrer la configuration.
-   - 
+
+     ![image](https://github.com/user-attachments/assets/f3b0112e-0903-40ba-ac82-2c232098d957)
+
+
+     ![image](https://github.com/user-attachments/assets/9925ac86-2a9b-4b8a-b95c-7336994848d8)
+
+Ajoutons un tableau de bord remarquable proposé par la communauté, qui vous permettra de visualiser les données de Prometheus. Ce tableau de bord est accessible via le lien suivant :**https://grafana.com/grafana/dashboards/3662**
+
+cd dasbord est conçu pour fournir une vue d'ensemble des métriques de votre serveur Prometheus. Il permet de suivre des indicateurs clés de performance, tels que :
+
+- **Santé du serveur :** Surveillez l'état général de votre instance Prometheus.
+- **Statistiques de requêtes :** Visualisez le nombre de requêtes traitées, les temps de réponse, et d'autres métriques pertinentes.
+- **Erreurs et alertes :** Identifiez rapidement les problèmes potentiels grâce aux graphiques d'erreurs et d'alerte.
    
 # I. Monitoring du matériel et du système d'exploitation
