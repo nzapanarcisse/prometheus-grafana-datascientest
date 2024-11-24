@@ -142,5 +142,8 @@ cd dasbord est conçu pour fournir une vue d'ensemble des métriques de votre se
 - **Santé du serveur :** Surveillez l'état général de votre instance Prometheus.
 - **Statistiques de requêtes :** Visualisez le nombre de requêtes traitées, les temps de réponse, et d'autres métriques pertinentes.
 - **Erreurs et alertes :** Identifiez rapidement les problèmes potentiels grâce aux graphiques d'erreurs et d'alerte.
-   
+- **installation du dashbord**
+Copiez **l'ID(3662)** du tableau de bord pour l'importer dans Grafana. Ensuite, dans votre instance Grafana, créez un nouveau tableau de bord et ajoutez l'ID que vous avez copié.
+   ![image](https://github.com/user-attachments/assets/4540c2a5-0db7-4307-8942-7d790a15b709)
+
 # I. Monitoring du matériel et du système d'exploitation
