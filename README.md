@@ -202,5 +202,41 @@ Pour importer un tableau de bord, copiez l'ID et renseignez-le dans Grafana via 
 
 # Bravo ! 🎉
 
+# I. Monitoring cluster
+
+Pour surveiller l'état de santé de votre cluster Kubernetes, vous pouvez utiliser plusieurs outils et métriques. Voici deux approches clés :
+
+1.**monitoring cluster via l'API de Kubernetes : Health et Metrics**
+
+L'API de Kubernetes expose des points de terminaison qui vous permettent de vérifier l'état de santé du cluster. Voici comment cela fonctionne :
+
+- **Health Checks :** L'API Kubernetes fournit des points de terminaison spécifiques pour vérifier la santé des composants du cluster. Par exemple, vous pouvez accéder à /healthz pour obtenir l'état de l'API server. Un retour HTTP 200 indique que le serveur fonctionne correctement.
+  
+- **Metrics :** Kubernetes expose également des métriques sur l'utilisation des ressources du cluster via le point de terminaison /metrics. Ces métriques incluent des informations sur l'utilisation du CPU, de la mémoire, et d'autres statistiques importantes. Vous pouvez les récupérer pour surveiller les performances et la santé de vos nœuds et pods(ce que nous allons faire).
+
+```bash
+cd ../lab-5
+#pour que prometheus puisse prendre en compte la nouvelle configuration
+kubectl delete -f ../sources/prometheus/config-map.yaml -n monitoring
+kubectl delete -f ../sources/prometheus/prometheus-deployment.yaml -n monitoring
+kubectl apply -f config-map.yaml
+kubectl apply -f prometheus-deployment.yaml -n monitoring
+```
+Vérifier la target apiserveur sur prometheus
+![image](https://github.com/user-attachments/assets/ada76559-1bf3-4875-859f-a254b9454685)
+
+importer un dashbord pour visualiser ces metric sur grafana
+
+exemple:https://grafana.com/grafana/dashboards/12006
+![image](https://github.com/user-attachments/assets/9675843a-46ce-46fa-b695-f19f1d52e656)
 
 
+2. **monitoring cluster via Kube-State-Metrics**
+   
+**Kube-State-Metrics** est un service qui génère des métriques à partir de l'état des objets Kubernetes. Contrairement à l'API Kubernetes qui fournit des métriques de performance, Kube-State-Metrics se concentre sur l'état des ressources.
+
+**Fonctionnalités :** Kube-State-Metrics collecte des informations sur les ressources Kubernetes comme les pods, les déploiements, les services, et les nœuds. Il expose des métriques sur des éléments tels que :
+- Le nombre de pods en cours d'exécution, en attente ou échoués.
+- L'état des déploiements et des réplicas.
+- Les ressources allouées et utilisées par chaque pod.
+**Intégration avec Prometheus :** Kube-State-Metrics est généralement utilisé avec Prometheus pour collecter et stocker ces métriques. Vous pouvez configurer Prometheus pour interroger Kube-State-Metrics et visualiser ces données dans Grafana. Cela vous permet d'avoir une vue d'ensemble de la santé de votre cluster.
