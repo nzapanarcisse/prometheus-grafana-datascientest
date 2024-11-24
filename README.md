@@ -202,7 +202,7 @@ Pour importer un tableau de bord, copiez l'ID et renseignez-le dans Grafana via 
 
 # Bravo ! 🎉
 
-# I. Monitoring cluster
+# II. Monitoring cluster
 
 Pour surveiller l'état de santé de votre cluster Kubernetes, vous pouvez utiliser plusieurs outils et métriques. Voici deux approches clés :
 
@@ -263,6 +263,45 @@ importer un dashbord pour visualiser ces metric sur grafana
 
 exemple: https://grafana.com/grafana/dashboards/17519
 ![image](https://github.com/user-attachments/assets/ce2fcbab-85fa-4e88-bd79-b6efdb2e64db)
+
+# Bravo ! 🎉
+
+# Bravo ! 🎉
+
+# III. Monitoring des Conteneurs:cAdvisor
+
+**cAdvisor** (Container Advisor) est un outil développé par Google pour surveiller les performances des conteneurs. Il collecte et fournit des métriques détaillées sur l'utilisation des ressources de chaque conteneur, telles que :
+
+- Utilisation du CPU
+- Utilisation de la mémoire
+- Utilisation du réseau
+- Utilisation du disque
+- 
+**Intégration de cAdvisor avec Kubernetes**
+  
+Kubernetes permet déjà de surveiller les conteneurs, car il dispose de mécanismes intégrés pour gérer leur état. Si un nœud tombe, Kubernetes, via son control plane, peut détecter la défaillance et notifier le kubelet pour recréer le pod.
+
+**cAdvisor Intégré**: Kubernetes intègre déjà cAdvisor dans le binaire du kubelet. Cela signifie que vous n'avez pas besoin d'installer cAdvisor séparément. Le kubelet utilise cAdvisor pour collecter des métriques sur les conteneurs qu'il gère.
+**Utilisation avec Prometheus** : En utilisant cAdvisor intégré, vous pouvez facilement exposer ces métriques à Prometheus. Pour ce faire, vous devez configurer Prometheus pour interroger le point de terminaison de cAdvisor, qui est généralement accessible à l'adresse http://<adresse_ip_du_kubelet>:10255/metrics.
+
+
+```bash
+cd /lab-7
+#pour que prometheus puisse prendre en compte la nouvelle configuration
+kubectl delete -f ../sources/prometheus/config-map.yaml -n monitoring
+kubectl delete -f ../sources/prometheus/prometheus-deployment.yaml -n monitoring
+kubectl apply -f config-map.yaml
+kubectl apply -f prometheus-deployment.yaml -n monitoring
+```
+
+Vérifier la target cAdvisor sur prometheus
+![image](https://github.com/user-attachments/assets/b6b5b67f-dfbc-46c8-8347-8fe751dc13e7)
+
+importer un dashbord pour visualiser ces metric sur grafana
+
+exemple: https://grafana.com/grafana/dashboards/12206
+![image](https://github.com/user-attachments/assets/ff85f29b-5e30-4786-8b1d-7ed3c141f70d)
+
 
 # Bravo ! 🎉
 
