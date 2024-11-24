@@ -276,13 +276,14 @@ exemple: https://grafana.com/grafana/dashboards/17519
 - Utilisation de la mémoire
 - Utilisation du réseau
 - Utilisation du disque
-- 
+  
 **Intégration de cAdvisor avec Kubernetes**
   
 Kubernetes permet déjà de surveiller les conteneurs, car il dispose de mécanismes intégrés pour gérer leur état. Si un nœud tombe, Kubernetes, via son control plane, peut détecter la défaillance et notifier le kubelet pour recréer le pod.
 
-**cAdvisor Intégré**: Kubernetes intègre déjà cAdvisor dans le binaire du kubelet. Cela signifie que vous n'avez pas besoin d'installer cAdvisor séparément. Le kubelet utilise cAdvisor pour collecter des métriques sur les conteneurs qu'il gère.
-**Utilisation avec Prometheus** : En utilisant cAdvisor intégré, vous pouvez facilement exposer ces métriques à Prometheus. Pour ce faire, vous devez configurer Prometheus pour interroger le point de terminaison de cAdvisor, qui est généralement accessible à l'adresse http://<adresse_ip_du_kubelet>:10255/metrics.
+- **cAdvisor Intégré**: Kubernetes intègre déjà cAdvisor dans le binaire du kubelet. Cela signifie que vous n'avez pas besoin d'installer cAdvisor séparément. Le kubelet utilise cAdvisor pour collecter des métriques sur les conteneurs qu'il gère.
+
+- **Utilisation avec Prometheus** : En utilisant cAdvisor intégré, vous pouvez facilement exposer ces métriques à Prometheus. Pour ce faire, vous devez configurer Prometheus pour interroger le point de terminaison de cAdvisor, qui est généralement accessible à l'adresse http://<adresse_ip_du_kubelet>:10255/metrics.
 
 
 ```bash
