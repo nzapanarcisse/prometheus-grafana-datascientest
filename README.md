@@ -92,5 +92,14 @@ echo Password: $ODOO_PASSWORD
   kubectl get all -n monitoring
   kubectl apply -f clusterRole.yaml
 ```
+entrez l'url **http://185.185.83.44:30000/** ou **185.185.83.44** est l'adresse ip de votre serveur. ceci bous permettra d'accéder à prometheus.
+![image](https://github.com/user-attachments/assets/5010e7b1-0e90-4088-a436-fec22680c2ab)
+
+
+Vous pouvez aller dans **status/targets** pour voir qu'effectivement Prometheus récupère ses propres métriques comme configuré.
+
+![image](https://github.com/user-attachments/assets/231aec6a-b75d-4ea3-95eb-414b2999668d)
+
+**installation grafana***
 
 # I. Monitoring du matériel et du système d'exploitation
