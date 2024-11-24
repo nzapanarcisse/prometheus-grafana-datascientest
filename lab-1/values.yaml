@@ -9,6 +9,6 @@ postgresql:
 externalDatabase:
   host: "pg-postgres-odoo-datascientest-postgresql-0"
   port: 5432
-  user: odoo_user
-  password: "odoo_password"
+  user: odoo
+  password: "odoo"
   database: odoo_datascientest
