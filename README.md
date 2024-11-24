@@ -14,3 +14,33 @@ Dans cette **formation** nous apportons une solution concrète à cette problém
 
 1. avoir de bonnes bases sur Docker 
 2. avoir de bonnes bases sur kubernetes
+
+
+## Lab-1 (installation odoo sur le cluster via helm3)
+**lien chart odoo** https://github.com/helm/charts/tree/master/stable/odoo
+**installation chart odoo**
+```bash
+ cd lab-1
+ helm repo add bitnami https://charts.bitnami.com/bitnami
+ helm repo update
+ helm search repo odoo
+```
+installation odoo
+```bash
+ helm install odoo-datascientest bitnami/odoo -f values.yaml --version 18.1.0
+```
+1. **Obtenez l'URL d'Odoo en exécutant les commandes suivantes :**
+
+```bash
+   export NODE_PORT=$(kubectl get --namespace default -o jsonpath="{.spec.ports[0].nodePort}" services odoo-datascientest)
+   export NODE_IP=$(kubectl get nodes --namespace default -o jsonpath="{.items[0].status.addresses[0].address}")
+   echo "Odoo URL: http://$NODE_IP:$NODE_PORT/"
+```
+2. **Obtenez les identifiants de connexion:**
+```bash
+   export ODOO_EMAIL=user@example.com
+export ODOO_PASSWORD=$(kubectl get secret --namespace "default" odoo-datascientest -o jsonpath="{.data.odoo-password}" | base64 -d)
+
+echo Email   : $ODOO_EMAIL
+echo Password: $ODOO_PASSWORD
+```
