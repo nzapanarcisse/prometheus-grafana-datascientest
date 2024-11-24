@@ -5,6 +5,10 @@ persistence:
   enabled: false
 #on active postgress(car vous pouvez fournir une host externe à odoo comme bd)
 postgresql:
-  enabled: true
-  persistence:
-    enabled: false 
+  enabled: false
+externalDatabase:
+  host: "pg-postgres-odoo-datascientest-postgresql-0"
+  port: 5432
+  user: odoo_user
+  password: "odoo_password"
+  database: odoo_datascientest
