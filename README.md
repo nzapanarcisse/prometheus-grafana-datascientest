@@ -240,3 +240,30 @@ exemple:https://grafana.com/grafana/dashboards/12006
 - L'état des déploiements et des réplicas.
 - Les ressources allouées et utilisées par chaque pod.
 **Intégration avec Prometheus :** Kube-State-Metrics est généralement utilisé avec Prometheus pour collecter et stocker ces métriques. Vous pouvez configurer Prometheus pour interroger Kube-State-Metrics et visualiser ces données dans Grafana. Cela vous permet d'avoir une vue d'ensemble de la santé de votre cluster.
+  ### installation kube-state-metrics 
+lien documentation officiel:https://github.com/kubernetes/kube-state-metrics/tree/master/docs
+
+**téléchargement**
+
+```bash
+git clone https://github.com/kubernetes/kube-state-metrics.git
+cd kube-state-metrics/examples/standard/
+kubectl apply -k .
+cd /lab-6
+#pour que prometheus puisse prendre en compte la nouvelle configuration
+kubectl delete -f ../sources/prometheus/config-map.yaml -n monitoring
+kubectl delete -f ../sources/prometheus/prometheus-deployment.yaml -n monitoring
+kubectl apply -f config-map.yaml
+kubectl apply -f prometheus-deployment.yaml -n monitoring
+```
+Vérifier la target Kube-State-Metrics sur prometheus
+![image](https://github.com/user-attachments/assets/3faf56d7-cae8-44ad-8e29-5e767e66b002)
+
+importer un dashbord pour visualiser ces metric sur grafana
+
+exemple: https://grafana.com/grafana/dashboards/17519
+![image](https://github.com/user-attachments/assets/ce2fcbab-85fa-4e88-bd79-b6efdb2e64db)
+
+# Bravo ! 🎉
+
+# Bravo ! 🎉
