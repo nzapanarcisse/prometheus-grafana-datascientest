@@ -146,4 +146,61 @@ cd dasbord est conçu pour fournir une vue d'ensemble des métriques de votre se
 Copiez **l'ID(3662)** du tableau de bord pour l'importer dans Grafana. Ensuite, dans votre instance Grafana, créez un nouveau tableau de bord et ajoutez l'ID que vous avez copié.
    ![image](https://github.com/user-attachments/assets/4540c2a5-0db7-4307-8942-7d790a15b709)
 
+
+# Bravo ! 🎉
+
+# Bravo ! 🎉
 # I. Monitoring du matériel et du système d'exploitation
+
+**definition d'un exporteur**
+
+**Un exporteur dans Prometheus** est un composant qui collecte des métriques d'une application, d'un service ou d'un système, puis les expose dans un format que Prometheus peut comprendre et récupérer. Les exporteurs sont essentiels pour surveiller des systèmes qui n'ont pas d'intégration native avec Prometheus.
+
+**Prometheus Node Exporter**
+Le Prometheus Node Exporter est un des exporteurs les plus couramment utilisés. Il est spécifiquement conçu pour collecter des métriques sur les ressources système d'un serveur, telles que :
+
+- CPU : Utilisation du processeur, fréquence, etc.
+- Mémoire : Utilisation de la mémoire, mémoire libre et utilisée, etc.
+- Disque : Utilisation des disques, performance des entrées/sorties, etc.
+- Réseau : Statistiques sur le trafic réseau, erreurs, etc.
+  
+1.**installation Node Exporter**
+```bash
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm repo update
+helm install node-exporter prometheus-community/prometheus-node-exporter
+helm search repo prometheus-community
+kubectl get all
+```
+
+2.**configuration Node Exporter**
+
+```bash
+cd ../lab-4
+#pour que prometheus puisse prendre en compte la nouvelle configuration
+kubectl delete -f ../sources/prometheus/config-map.yaml -n monitoring
+kubectl delete -f ../sources/prometheus/prometheus-deployment.yaml -n monitoring
+kubectl apply -f config-map.yaml
+kubectl apply -f prometheus-deployment.yaml -n monitoring
+```
+
+Accédez à prometheus/targets pour voir le Node Exporter. Cliquez sur Prometheus et effectuez une recherche pour découvrir les métriques disponibles grâce à notre exporteur.
+![image](https://github.com/user-attachments/assets/1e7383c3-42cf-49f6-b5fb-7d0b24edb56b)
+
+
+3.**ajout Node Exporter à Grafana**
+La communauté a déjà mis à notre disposition plusieurs tableaux de bord pour Node Exporter. Ces tableaux de bord fournissent de nombreuses informations sur les nœuds de notre cluster. Vous pouvez les consulter ici :
+
+**https://grafana.com/grafana/dashboards/1860**
+Pour importer un tableau de bord, copiez l'ID et renseignez-le dans Grafana via le menu Tableau de bord > Nouveau tableau de bord > Importer un tableau de bord.
+
+
+![image](https://github.com/user-attachments/assets/a995b554-0c1b-4cec-95ca-df8d46bb76c2)
+
+
+# Bravo ! 🎉
+
+# Bravo ! 🎉
+
+
+
