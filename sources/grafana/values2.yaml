@@ -1,0 +1,64 @@
+# values.yaml for Grafana
+grafana:
+  enabled: true
+  adminUser: admin
+  adminPassword: admin123  # Changez cela pour un mot de passe sécurisé
+  
+  persistence:
+    enabled: true
+    type: pvc
+    accessModes:
+      - ReadWriteOnce
+    size: 10Gi  # Ajustez selon vos besoins
+    storageClassName: standard  # Changez si vous utilisez une autre classe de stockage
+
+  sidecar:
+    image:
+      registry: quay.io
+      repository: kiwigrid/k8s-sidecar
+      tag: 1.28.0
+
+  testFramework:
+    image:
+      registry: docker.io
+      repository: bats/bats
+      tag: v1.4.1
+
+  dashboardProviders:
+    dashboardproviders.yaml:
+      apiVersion: 1
+      providers:
+        - name: 'default'
+          type: file
+          disableDeletion: false
+          updateInterval: 10s
+          options:
+            path: /var/lib/grafana/dashboards/default
+
+  dashboards:
+    default:
+      my-dashboard:
+        json: |
+          {
+            "title": "My Dashboard",
+            "panels": [
+              {
+                "type": "graph",
+                "title": "Example Panel",
+                "targets": [
+                  {
+                    "target": "my_metric"
+                  }
+                ]
+              }
+            ]
+          }
+service:
+    type: NodePort
+    port: 9000
+    targetPort: 3000
+    # targetPort: 4181 To be used with a proxy extraContainer
+    nodePort: 30007
+    annotations: {}
+    labels: {}
+    portName: service
