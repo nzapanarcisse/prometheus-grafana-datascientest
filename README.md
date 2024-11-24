@@ -55,6 +55,26 @@ echo Password: $ODOO_PASSWORD
 
 **installation prometheus***
 
+ 1- **Accédez au répertoire du projet  et exécuté les commandes:**
+  
+  **config-map.yaml**
+  - Le ficher **config-map.yaml** définit la configuration de Prometheus.
+  
+  - *scrape_interval* et *evaluation_interval* : Définissent la fréquence à laquelle Prometheus collecte des métriques et évalue les règles.
 
+  - *scrape_configs* : Définit les cibles à surveiller. Ici, Prometheus est configuré pour surveiller lui-même.
+
+  - Le scrape_interval de 20 secondes permet une collecte fréquente des données.
+  - La cible localhost:9090 indique que Prometheus surveille son propre endpoint.
+  
+```bash
+  cd source/prometheus
+  kubectl create namespace monitoring
+  kubectl apply -f config-map.yaml
+  kubectl apply -f prometheus-deployment.yaml -n monitoring
+  kubectl apply -f prometheus-service.yaml -n monitoring
+  kubectl get all -n monitoring
+  kubectl apply -f clusterRole.yaml
+```
 
 # I. Monitoring du matériel et du système d'exploitation
