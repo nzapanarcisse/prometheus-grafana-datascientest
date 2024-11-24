@@ -60,12 +60,28 @@ echo Password: $ODOO_PASSWORD
   **config-map.yaml**
   - Le ficher **config-map.yaml** définit la configuration de Prometheus.
   
-  - *scrape_interval* et *evaluation_interval* : Définissent la fréquence à laquelle Prometheus collecte des métriques et évalue les règles.
+  - **scrape_interval** et *evaluation_interval* : Définissent la fréquence à laquelle Prometheus collecte des métriques et évalue les règles.
 
-  - *scrape_configs* : Définit les cibles à surveiller. Ici, Prometheus est configuré pour surveiller lui-même.
+  - **scrape_configs** : Définit les cibles à surveiller. Ici, Prometheus est configuré pour surveiller lui-même.
 
-  - Le scrape_interval de 20 secondes permet une collecte fréquente des données.
-  - La cible localhost:9090 indique que Prometheus surveille son propre endpoint.
+  - Le **scrape_interval** de 20 secondes permet une collecte fréquente des données.
+  - La cible **localhost:9090** indique que Prometheus surveille son propre endpoint.
+  **prometheus-deployment.yaml**
+    - **replicas** : Indique le nombre d'instances de Prometheus à exécuter. Ici, une seule instance est déployée.
+    - **containers** : Définit le conteneur Prometheus, y compris l'image et les arguments pour spécifier le fichier de configuration et le chemin de stockage.
+    - Le **volumeMount** pour prometheus-config-volume permet à Prometheus d'accéder à sa configuration via le ConfigMap
+
+ **clusterRole.yaml**
+ - Le fichier clusterRole.yaml définit les permissions nécessaires pour que Prometheus puisse surveiller le cluster Kubernetes. Il spécifie les ressources auxquelles Prometheus peut accéder et les actions qu'il peut effectuer sur ces ressources.
+
+- Ressources et permissions : Le rôle accorde à Prometheus l'accès à des ressources critiques comme les nœuds, les services, les pods et les points d'ingress. Cela lui permet de collecter des métriques sur l'état du cluster et des applications déployées.
+  
+- Accès non basé sur les ressources : En plus des ressources Kubernetes, le rôle permet également l'accès à des URLs spécifiques, comme celles fournissant des métriques, ce qui est essentiel pour la collecte de données par Prometheus.
+- Liaison de rôle : Le fichier inclut également une liaison de rôle qui associe ce rôle à un compte de service, garantissant ainsi que Prometheus peut utiliser ces permissions lorsqu'il s'exécute dans le namespace approprié.
+  
+- **ClusterRole** : Définit les permissions nécessaires pour que Prometheus puisse interroger les ressources Kubernetes.
+- **rules** : Spécifie les ressources (telles que les pods et les services) que Prometheus peut lire.
+- Le **ClusterRoleBinding** lie le ClusterRole au compte de service par défaut, permettant à Prometheus d'accéder aux métriques et aux ressources nécessaires pour la surveillance.
   
 ```bash
   cd source/prometheus
