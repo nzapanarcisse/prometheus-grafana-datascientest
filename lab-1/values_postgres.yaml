@@ -1,0 +1,11 @@
+auth:
+  enablePostgresUser: true
+  postgresPassword: "odoo"
+  username: "odoo"
+  password: "odoo"
+  database: "odoo_datascientest"
+
+# The postgres helm chart deployment will be using PVC postgresql-data-claim
+primary:
+  persistence:
+    enabled: false
