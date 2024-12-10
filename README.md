@@ -28,12 +28,12 @@ Dans cette **formation** nous apportons une solution concrète à cette problém
 installation odoo
 ```bash
  kubectl create namespace monitoring
- helm install pg-postgres-odoo-datascientest bitnami/postgresql -f values_postgres.yaml -n monitoring
- helm install odoo-datascientest bitnami/odoo -f values.yaml -n monitoring
- kubectl get all -n monitoring
+ helm install odoo-postgres-datascientest-postgresql bitnami/postgresql -f values_postgres.yaml
+ helm install odoo-datascientest bitnami/odoo -f values.yaml
+ kubectl get all
 
- helm uninstall odoo-datascientest -n monitoring
- helm uninstall pg-postgres-odoo-datascientest -n monitoring
+ helm uninstall odoo-datascientest
+ helm uninstall odoo-postgres-datascientest-postgresql 
 ```
 1. **Obtenez l'URL d'Odoo en exécutant les commandes suivantes :**
 
