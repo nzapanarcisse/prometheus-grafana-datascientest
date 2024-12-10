@@ -7,7 +7,7 @@ persistence:
 postgresql:
   enabled: false
 externalDatabase:
-  host: "pg-postgres-odoo-datascientest-postgresql-0"
+  host: "odoo-postgres-datascientest-postgresql-0"
   port: 5432
   user: odoo
   password: "odoo"
