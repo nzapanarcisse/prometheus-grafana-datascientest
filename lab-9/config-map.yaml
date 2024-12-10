@@ -63,4 +63,4 @@ data:
             replacement: blackbox-exporter-prometheus-blackbox-exporter.default.svc:9115  # The blackbox exporter's real hostname:port.
       - job_name: 'odoo_postgres'
         static_configs:
-          - targets: ['postgresql-exporter-prometheus-postgres-exporter.default.svc:80']
+          - targets: ['postgres-exporter-prometheus-postgres-exporter.default.svc:80']
