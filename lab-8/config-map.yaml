@@ -53,7 +53,8 @@ data:
           module: [http_2xx]  # Look for a HTTP 200 response.
         static_configs:
           - targets:
-             - http://odoo/web/login   # Target to probe (webpress application url) with http.
+             - http://my-app-services
+             - http://odoo-service/web/login
         relabel_configs:
           - source_labels: [__address__]
             target_label: __param_target
